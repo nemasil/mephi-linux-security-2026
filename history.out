@@ -1,0 +1,61 @@
+    1  sudo dnf -y upgrade
+    2  sudo dnf -y install git gh libcap
+    3  sudo systemctl enable --now sshd
+    4  sudo reboot
+    5  su - user1
+    6  exit
+    7  sudo dnf -y upgrade
+    8  sudo dnf -y install git gh libcap
+    9  sudo groupadd students
+   10  sudo useradd -m -u 1234 -G students -s /bin/bash user1
+   11  sudo passwd user1
+   12  sudo chage -M 90 user1
+   13  sudo chage -l user1
+   14  id user1
+   15  sudo -u user1 cat /etc/shadow
+   16  sudo cp /usr/bin/cat /home/user1/cat
+   17  sudo chown root:root /home/user1/cat
+   18  sudo chmod 4755 /home/user1/cat
+   19  ls -l /home/user1/cat
+   20  sudo -u user1 /home/user1/cat /etc/shadow
+   21  sudo -u user1 touch /home/user1/test.txt
+   22  sudo -u user1 chown root /home/user1/test.txt
+   23  sudo cp /usr/bin/chown /home/user1/chown
+   24  sudo chmod 755 /home/user1/chown
+   25  sudo setcap cap_chown+ep /home/user1/chown
+   26  getcap /home/user1/chown
+   27  sudo getcap /home/user1/chown
+   28  sudo -u user1 /home/user1/chown root:root /home/user1/test.txt
+   29  ls -l /home/user1/test.txt
+   30  sudo ls -l /home/user1/test.txt
+   31  sudo find / -path /proc -prune -o -type f -perm -4000 -exec ls -l {} + 2>/dev/null | tee ~/suid_files.out
+   32  ps -eo pid,ruid,euid,ruser:12,euser:12,args | awk 'NR==1 || ($3==0 && $2>=1000 && $2<=60000)' | tee ~/ps_privileged.out
+   33  sudo visudo
+   34  sudo visudo -c
+   35  sudo -u user1 sudo -l
+   36  sudo -u user1 sudo timedatectl set-ntp false
+   37  sudo -u user1 sudo -l
+   38  sudo -u user1 sudo timedatectl set-ntp false
+   39  sudo -u user1 sudo date -s "2026-11-16 12:00:00"
+   40  date
+   41  sudo -u user1 sudo timedatectl set-ntp true
+   42  history -a
+   43  sudo reboot
+   44  clear
+   45  id user1; sudo chage -l user1 | grep Maximum
+   46  ls -l /home/user1/cat; getcap /home/user1/chown
+   47  sudo ls -l /home/user1/cat; getcap /home/user1/chown
+   48  sudo -l -U user1
+   49  stat /home/user1 > ~/stat.out
+   50  stat /home/user1/cat >> ~/stat.out
+   51  sudo stat /home/user1/cat >> ~/stat.out
+   52  stat /home/user1/chown >> ~/stat.out
+   53  sudo stat /home/user1/chown >> ~/stat.out
+   54  getcap /home/user1/chown > ~/getcap.out
+   55  sudo getcap /home/user1/chown > ~/getcap.out
+   56  sudo cp /etc/passwd /etc/shadow /etc/group /etc/sudoers ~/
+   57  sudo chown $USER: ~/passwd ~/shadow ~/group ~/sudoers
+   58  echo "Мой уникальный номер: 374997"
+   59  cat ~/stat.out ~/getcap.out
+   60  echo "Мой уникальный номер: 374997"
+   61  history > ~/history.out
